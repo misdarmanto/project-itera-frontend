@@ -10,5 +10,5 @@ export let loader: LoaderFunction = async () => {
 };
 
 export default function Index() {
-  return <h1>Vehicle</h1>;
+  return <h1>Activities</h1>;
 }

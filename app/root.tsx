@@ -14,9 +14,6 @@ import {
 import type { MetaFunction } from "remix";
 import rootStyles from "~/styles/tailwind.css";
 import globalStyle from "~/styles/global.css";
-import { checkSession } from "./services/session";
-import { CONSOLE } from "./utilities/log";
-import Layout from "./components/Layout";
 
 export const links: LinksFunction = () => {
   return [
@@ -31,7 +28,7 @@ export const links: LinksFunction = () => {
 };
 
 export const meta: MetaFunction = () => {
-  return { title: "Itera" };
+  return { title: "Kitera" };
 };
 
 // export let loader: LoaderFunction = async ({ params, request }: { params: any; request: any }) => {

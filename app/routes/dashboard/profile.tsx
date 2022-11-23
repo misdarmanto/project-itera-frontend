@@ -4,7 +4,7 @@ import { CONFIG } from "~/config";
 
 export let loader: LoaderFunction = async () => {
   try {
-    const posts = await API.get(`${CONFIG.base_url_api.media}/post/list`);
+    const posts = ""
     return posts;
   } catch (error) {
     console.error(error);
