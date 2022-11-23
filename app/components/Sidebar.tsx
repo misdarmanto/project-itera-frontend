@@ -5,7 +5,7 @@ import { AiFillPieChart, AiTwotoneSetting } from "react-icons/ai";
 import { BiMenu } from "react-icons/bi";
 import { FaCarSide, FaUsers } from "react-icons/fa";
 import { RiCloseLine } from "react-icons/ri";
-import { FiActivity} from "react-icons/fi"
+import { FiActivity } from "react-icons/fi";
 
 const Sidebar = () => {
   const [open, setOpen] = useState(false);
@@ -14,8 +14,8 @@ const Sidebar = () => {
   const Menus = [
     { title: "Dashboard", path: "/dashboard", icon: <AiFillPieChart /> },
     { title: "Activities", path: "/dashboard/activities", icon: <FiActivity /> },
-    { title: "Vehicles", path: "/dashboard/vehicles", icon: <FaCarSide /> },
     { title: "Users", path: "/dashboard/users", icon: <FaUsers /> },
+    { title: "Vehicles", path: "/dashboard/vehicles", icon: <FaCarSide /> },
     { title: "Settings", path: "/dashboard/settings", icon: <AiTwotoneSetting /> },
   ];
 
@@ -30,7 +30,10 @@ const Sidebar = () => {
           className={`flex items-center gap-x-6 p-2 my-1 text-base font-normal rounded-lg cursor-pointer dark:text-white hover:bg-gray-200 dark:hover:bg-gray-700`}
         >
           {open ? (
-            <RiCloseLine className="text-3xl text-gray-500" onClick={() => setOpen(!open)} />
+            <>
+              <RiCloseLine className="text-3xl text-gray-500" onClick={() => setOpen(!open)} />
+              <small>Close</small>
+            </>
           ) : (
             <BiMenu onClick={() => setOpen(!open)} className="text-3xl text-gray-500" />
           )}

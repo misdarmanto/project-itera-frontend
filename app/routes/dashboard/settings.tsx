@@ -10,5 +10,7 @@ export let loader: LoaderFunction = async () => {
 };
 
 export default function Index() {
-  return <h1>Settings</h1>;
+  return (
+    <div className="bg-white w-full h-96 rounded-md shadow-md"></div>
+  )
 }

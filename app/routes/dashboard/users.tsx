@@ -2,12 +2,14 @@ import { LoaderFunction, useLoaderData } from "remix";
 
 export let loader: LoaderFunction = async () => {
   try {
-    const tableData = [
-      { name: "Jhon Doe", role: "guest", RFID: "12122", vheicleTotal: "2" },
-      { name: "Marrie Doe", role: "admin", RFID: "12122", vheicleTotal: "1" },
-      { name: "Jarwo", role: "super admin", RFID: "12332", vheicleTotal: "5" },
+    const header = ["name", "email", "role", "RFID", "Total Vihicle", "action"];
+    const body = [
+      { name: "Jhon Doe", email: "mail@mail.com", role: "guest", RFID: "12122", vheicleTotal: "2" },
+      { name: "Marrie Doe", email: "mail@mail.com", role: "admin", RFID: "12122", vheicleTotal: "1" },
+      { name: "Jarwo", email: "mail@mail.com", role: "super admin", RFID: "12332", vheicleTotal: "5" },
     ];
-    return { tableData };
+    const table = { header, body };
+    return { table };
   } catch (error) {
     console.error(error);
   }
@@ -78,7 +80,7 @@ export default function Index() {
       <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
         <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
           <tr>
-            {["name", "role", "RFID", "Total Vihicle", "action"].map((header: any, index: number) => (
+            {loader.table.header.map((header: any, index: number) => (
               <th key={index} scope="col" className="py-3 px-6">
                 {header}
               </th>
@@ -86,12 +88,13 @@ export default function Index() {
           </tr>
         </thead>
         <tbody>
-          {loader.tableData.map((body: any, index: number) => (
+          {loader.table.body.map((body: any, index: number) => (
             <tr
               key={index}
               className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
             >
               <td className="py-4 px-6">{body.name}</td>
+              <td className="py-4 px-6">{body.email}</td>
               <td className="py-4 px-6">{body.role}</td>
               <td className="py-4 px-6">{body.RFID}</td>
               <td className="py-4 px-6">{body.vheicleTotal}</td>
@@ -108,7 +111,7 @@ export default function Index() {
                   onClick={() => null}
                   className="text-teal-500 mx-1 bg-white border border-teal-300 focus:outline-none hover:bg-teal-500 hover:text-white focus:ring-4 focus:ring-teal-200 font-medium rounded-lg text-sm px-5 py-1.5"
                 >
-                  Hapus
+                  Delete
                 </button>
               </td>
             </tr>
