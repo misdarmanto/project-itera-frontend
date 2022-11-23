@@ -22,7 +22,7 @@ export const links: LinksFunction = () => {
   return [
     {
       rel: "icon",
-      href: "https://asset.lenterailmu.id?dir=resources/icon/play_store_512.png",
+      href: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ef/Logo_ITERA.png/600px-Logo_ITERA.png",
       type: "image/png",
     },
     { rel: "stylesheet", href: rootStyles },
@@ -31,7 +31,7 @@ export const links: LinksFunction = () => {
 };
 
 export const meta: MetaFunction = () => {
-  return { title: "Lentera Ilmu" };
+  return { title: "Itera" };
 };
 
 // export let loader: LoaderFunction = async ({ params, request }: { params: any; request: any }) => {
