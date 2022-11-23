@@ -6,17 +6,19 @@ import { BiMenu } from "react-icons/bi";
 import { FaCarSide, FaUsers } from "react-icons/fa";
 import { RiCloseLine } from "react-icons/ri";
 import { FiActivity } from "react-icons/fi";
+import {MdVpnKey } from "react-icons/md"
 
 const Sidebar = () => {
   const [open, setOpen] = useState(false);
   const location = useLocation();
 
   const Menus = [
-    { title: "Dashboard", path: "/dashboard", icon: <AiFillPieChart /> },
-    { title: "Activities", path: "/dashboard/activities", icon: <FiActivity /> },
-    { title: "Users", path: "/dashboard/users", icon: <FaUsers /> },
-    { title: "Vehicles", path: "/dashboard/vehicles", icon: <FaCarSide /> },
-    { title: "Settings", path: "/dashboard/settings", icon: <AiTwotoneSetting /> },
+    { title: "Dashboard", path: "/", icon: <AiFillPieChart /> },
+    { title: "Activities", path: "/activities", icon: <FiActivity /> },
+    { title: "Users", path: "/users", icon: <FaUsers /> },
+    { title: "Vehicles", path: "/vehicles", icon: <FaCarSide /> },
+    { title: "Admin", path: "/admin", icon: <MdVpnKey /> },
+    { title: "Settings", path: "/settings", icon: <AiTwotoneSetting /> },
   ];
 
   return (

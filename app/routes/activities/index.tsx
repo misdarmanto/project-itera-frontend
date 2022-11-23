@@ -13,45 +13,38 @@ export const loader: LoaderFunction = async () => {
 const data = [
   {
     name: "Page A",
-    in: 4000,
-    out: 2400,
-    amt: 2400,
+    in: 400,
+    out: 240,
   },
   {
     name: "Page B",
-    in: 3000,
-    out: 1398,
-    amt: 2210,
+    in: 300,
+    out: 138,
   },
   {
     name: "Page C",
-    in: 2000,
-    out: 9800,
-    amt: 2290,
+    in: 200,
+    out: 980,
   },
   {
     name: "Page D",
-    in: 2780,
-    out: 3908,
-    amt: 2000,
+    in: 270,
+    out: 398,
   },
   {
     name: "Page E",
-    in: 1890,
-    out: 4800,
-    amt: 2181,
+    in: 180,
+    out: 480,
   },
   {
     name: "Page F",
-    in: 2390,
-    out: 3800,
-    amt: 2500,
+    in: 230,
+    out: 380,
   },
   {
     name: "Page G",
-    in: 3490,
-    out: 4300,
-    amt: 2100,
+    in: 340,
+    out: 430,
   },
 ];
 
@@ -59,13 +52,24 @@ export default function Index() {
   return (
     <div className="flex flex-wrap">
       <div className="bg-white rounded-md shadow-md p-8 m-5">
+        <div className="flex items-center text-gray-500 mb-5">
+          <h1 className="text-xl font-semibold mr-5">Traffics</h1>
+          <div className="flex items-center">
+            <div style={{ backgroundColor: "#14b8a6" }} className="h-5 w-5 mx-2 rounded-sm"></div>
+            <h1>In</h1>
+          </div>
+          <div className="flex items-center">
+            <div style={{ backgroundColor: "#ffc658" }} className="h-5 w-5 mx-2 rounded-sm"></div>
+            <h1>Out</h1>
+          </div>
+        </div>
         <AreaChart
-          width={450}
-          height={300}
+          width={400}
+          height={250}
           data={data}
           margin={{
             top: 10,
-            right: 30,
+            right: 10,
             left: 0,
             bottom: 0,
           }}
@@ -78,14 +82,26 @@ export default function Index() {
           <Area type="monotone" dataKey="in" stroke="#14b8a6" fill="#14b8a6" />
         </AreaChart>
       </div>
+
       <div className="bg-white rounded-md shadow-md p-8 m-5">
+        <div className="flex items-center text-gray-500 mb-5">
+          <h1 className="text-xl font-semibold mr-5">Vehicles</h1>
+          <div className="flex items-center">
+            <div style={{ backgroundColor: "#14b8a6" }} className="h-5 w-5 mx-2 rounded-sm"></div>
+            <h1>Car</h1>
+          </div>
+          <div className="flex items-center">
+            <div style={{ backgroundColor: "#ffc658" }} className="h-5 w-5 mx-2 rounded-sm"></div>
+            <h1>Motorcycle</h1>
+          </div>
+        </div>
         <AreaChart
-          width={450}
-          height={300}
+          width={400}
+          height={250}
           data={data}
           margin={{
             top: 10,
-            right: 30,
+            right: 10,
             left: 0,
             bottom: 0,
           }}

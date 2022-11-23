@@ -14,6 +14,7 @@ import {
 import type { MetaFunction } from "remix";
 import rootStyles from "~/styles/tailwind.css";
 import globalStyle from "~/styles/global.css";
+import Layout from "./components/Layout";
 
 export const links: LinksFunction = () => {
   return [
@@ -55,10 +56,12 @@ export default function App() {
         <Links />
       </head>
       <body>
-        <Outlet />
-        <ScrollRestoration />
-        <Scripts />
-        <LiveReload />
+        <Layout>
+          <Outlet />
+          <ScrollRestoration />
+          <Scripts />
+          <LiveReload />
+        </Layout>
       </body>
     </html>
   );
