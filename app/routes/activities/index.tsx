@@ -1,7 +1,10 @@
 import { LoaderFunction, useLoaderData } from "remix";
-import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts";
+import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip } from "recharts";
 import { Tab } from "@headlessui/react";
 import Table from "~/components/table";
+import Button from "~/components/buttom";
+import { Dialog, Transition } from "@headlessui/react";
+import { Fragment, useState } from "react";
 
 export let loader: LoaderFunction = async () => {
   try {
@@ -115,6 +118,7 @@ function classNames(...classes: any) {
 
 export default function Index() {
   const loader = useLoaderData();
+  let [isOpenModal, setIsOpenModal] = useState(false);
   return (
     <Tab.Group>
       <Tab.List className="flex mt-10 bg-white overflow-x-auto rounded-t-md">
@@ -123,9 +127,9 @@ export default function Index() {
             key={category}
             className={({ selected }) =>
               classNames(
-                "w-full py-2 leading-5 text-md",
-                "ring-white bg-gray-100 ring-opacity-60 ring-offset-2 focus:outline-none focus:ring-2",
-                selected ? "bg-white text-teal-500 border-b-2 border-teal-500" : "text-gray-900 hover:text-gray-400",
+                "w-full py-2 h-16 leading-5 text-md border-b-2 uppercase",
+                "ring-white ring-opacity-60 ring-offset-2 focus:outline-none focus:ring-2",
+                selected ? "bg-white text-teal-500  border-teal-500" : "text-gray-900 hover:text-gray-400",
               )
             }
           >
@@ -167,7 +171,34 @@ export default function Index() {
             </AreaChart>
           </div>
 
-          <Table header={loader.table.header} body={loader.table.body} />
+          <Table
+            header={loader.table.header}
+            body={loader.table.body}
+            actionComponent={() => (
+              <>
+                <Button title="More" onClick={() => setIsOpenModal(!isOpenModal)} />
+
+                {isOpenModal && (
+                  <div className="fixed inset-0 z-10 overflow-y-auto">
+                    <div
+                      className="fixed inset-0 w-full h-full bg-black opacity-10"
+                      onClick={() => setIsOpenModal(false)}
+                    ></div>
+                    <div className="flex items-center min-h-screen px-4 py-8">
+                      <div className="relative flex justify-between w-full max-w-xl p-8 mx-auto bg-white rounded-md shadow-lg">
+                        <img
+                          className="max-w-xs h-auto rounded-md"
+                          src="https://cdn.motor1.com/images/mgl/P33WYL/s3/ferrari-sp48-unica.jpg"
+                          alt="image vehecle"
+                        />
+                        <h1>detail kendaraan</h1>
+                      </div>
+                    </div>
+                  </div>
+                )}
+              </>
+            )}
+          />
         </Tab.Panel>
         <Tab.Panel>
           <div className="p-5">

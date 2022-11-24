@@ -1,8 +1,6 @@
 import { LoaderFunction, useLoaderData } from "remix";
+import { useState } from "react";
 import Button from "~/components/buttom";
-import DropDown from "~/components/dropdown";
-import Search from "~/components/form/search";
-import Pagination from "~/components/pagination";
 import Table from "~/components/table";
 
 export let loader: LoaderFunction = async () => {
@@ -21,5 +19,30 @@ export let loader: LoaderFunction = async () => {
 
 export default function Index() {
   const loader = useLoaderData();
-  return <Table header={loader.table.header} body={loader.table.body} />;
+  const [isOpenModal, setIsOpenModal] = useState(false);
+  return (
+    <Table
+      header={loader.table.header}
+      body={loader.table.body}
+      actionComponent={(item: any) => (
+        <>
+          <Button title="More" onClick={() => setIsOpenModal(!isOpenModal)} />
+
+          {isOpenModal && (
+            <div className="fixed inset-0 z-10 overflow-y-auto">
+              <div
+                className="fixed inset-0 w-full h-full bg-black opacity-10"
+                onClick={() => setIsOpenModal(false)}
+              ></div>
+              <div className="flex items-center min-h-screen px-4 py-8">
+                <div className="relative flex justify-between h-96 w-full max-w-xl p-8 mx-auto bg-white rounded-md shadow-lg">
+                  <h1>detail kendaran</h1>
+                </div>
+              </div>
+            </div>
+          )}
+        </>
+      )}
+    />
+  );
 }

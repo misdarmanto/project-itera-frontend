@@ -17,7 +17,7 @@ const TableHeader = ({ headers }: any) => {
   );
 };
 
-const TableBody = ({ body }: any) => {
+const TableBody = ({ body, actionComponent = () => null }: any) => {
   return (
     <tbody>
       {body.map((item: any, index: number) => {
@@ -32,9 +32,7 @@ const TableBody = ({ body }: any) => {
                 {item[name]}
               </td>
             ))}
-            <td className="py-4 px-6">
-              <Button title="More" />
-            </td>
+            {actionComponent() && <td className="py-4 px-6">{actionComponent(item)}</td>}
           </tr>
         );
       })}
@@ -42,7 +40,7 @@ const TableBody = ({ body }: any) => {
   );
 };
 
-export default function Table({ header, body }: any) {
+export default function Table({ header, body, actionComponent }: any) {
   return (
     <div className="overflow-x-auto relative shadow-md sm:rounded-lg my-5">
       <div className="flex justify-between items-center p-4 bg-white">
@@ -54,7 +52,7 @@ export default function Table({ header, body }: any) {
       </div>
       <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
         <TableHeader headers={header} />
-        <TableBody body={body} />
+        <TableBody body={body} actionComponent={actionComponent} />
       </table>
       <Pagination />
     </div>
