@@ -1,7 +1,6 @@
 import { LoaderFunction, useLoaderData } from "remix";
-import { PieChart, Pie, Sector, Cell, ResponsiveContainer } from "recharts";
+import { PieChart, Pie, Cell } from "recharts";
 import { FaUsers, FaCarSide, FaMotorcycle } from "react-icons/fa";
-
 
 export let loader: LoaderFunction = async () => {
   try {
