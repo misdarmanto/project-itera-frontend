@@ -1,0 +1,8 @@
+node_modules
+test
+/.cache
+/build
+/public/build
+.env
+
+.vercel
