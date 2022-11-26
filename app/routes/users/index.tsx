@@ -2,9 +2,12 @@ import { useState } from "react";
 import { LoaderFunction, useLoaderData } from "remix";
 import Button from "~/components/buttom";
 import Table from "~/components/table";
+import { CONFIG } from "~/config";
+import { API } from "~/services/api";
 
 export let loader: LoaderFunction = async () => {
   try {
+    const data = API.get(`${CONFIG.base_url_api}/admin/list`)
     const header = ["name", "email", "role", "RFID", "Vehicle Total", "action"];
     const body = [
       { name: "Jhon Doe", email: "mail@mail.com", role: "guest", RFID: "12122", vheicleTotal: "2" },
@@ -14,7 +17,7 @@ export let loader: LoaderFunction = async () => {
       { name: "Tukimin", email: "mail@mail.com", role: "super admin", RFID: "72632", vheicleTotal: "5" },
     ];
     const table = { header, body };
-    return { table };
+    return { table, data };
   } catch (error) {
     console.error(error);
   }
@@ -22,7 +25,10 @@ export let loader: LoaderFunction = async () => {
 
 export default function Index() {
   const loader = useLoaderData();
+  console.log(loader.data)
+
   const [isOpenModal, setIsOpenModal] = useState(false);
+  
   return (
     <Table
       header={loader.table.header}

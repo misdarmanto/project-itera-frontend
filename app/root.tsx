@@ -56,12 +56,18 @@ export default function App() {
         <Links />
       </head>
       <body>
-        <Layout>
-          <Outlet />
-          <ScrollRestoration />
-          <Scripts />
-          <LiveReload />
-        </Layout>
+        {location.pathname.includes("login") || location.pathname.includes("signup") ? (
+          <>
+            <Outlet />
+          </>
+        ) : (
+          <Layout>
+            <Outlet />
+          </Layout>
+        )}
+        <Scripts />
+        <ScrollRestoration />
+        <LiveReload />
       </body>
     </html>
   );
