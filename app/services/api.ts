@@ -2,10 +2,19 @@ import axios from "axios";
 import { CONFIG } from "~/config";
 import { CONSOLE } from "~/utilities/log";
 
+export const getHeaders = (session: any) => {
+  return {
+    "x-user-id": session?.user_id || "",
+  };
+};
+
 export const API = {
-  get: async (url: string) => {
+  get: async (session: any, url: string, headers?: any) => {
     try {
-      const result = await axios.get(url);
+      const result = await axios.get(url, {
+        auth: { username: CONFIG.authorization.username, password: CONFIG.authorization.passsword },
+        headers: { ...getHeaders(session), ...headers },
+      });
       return result.data.data;
     } catch (error: any) {
       CONSOLE.log(error);
@@ -17,12 +26,12 @@ export const API = {
       };
     }
   },
-  
-  post: async (url: string, body: any, headers?: any) => {
+
+  post: async (session: any, url: string, body: any, headers?: any) => {
     try {
       const result = await axios.post(url, body, {
         auth: { username: CONFIG.authorization.username, password: CONFIG.authorization.passsword },
-        headers: { ...headers },
+        headers: { ...getHeaders(session), ...headers },
       });
       return result.data;
     } catch (error: any) {
@@ -36,11 +45,11 @@ export const API = {
     }
   },
 
-  patch: async (url: string, body: any, headers?: any) => {
+  patch: async (session: any, url: string, body: any, headers?: any) => {
     try {
       const result = await axios.patch(url, body, {
         auth: { username: CONFIG.authorization.username, password: CONFIG.authorization.passsword },
-        headers: { ...headers },
+        headers: { ...getHeaders(session), ...headers },
       });
       return result.data;
     } catch (error: any) {
@@ -53,11 +62,12 @@ export const API = {
       };
     }
   },
-  delete: async (url: string, headers?: any) => {
+
+  delete: async (session: any, url: string, headers?: any) => {
     try {
       const result = await axios.delete(url, {
         auth: { username: CONFIG.authorization.username, password: CONFIG.authorization.passsword },
-        headers: { ...headers },
+        headers: { ...getHeaders(session), ...headers },
       });
       return result.data;
     } catch (error: any) {

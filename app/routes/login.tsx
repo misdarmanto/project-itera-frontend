@@ -1,7 +1,8 @@
 import Button from "~/components/buttom";
-import { ActionFunction, Form, redirect, useSubmit } from "remix";
+import { ActionFunction, Form, useActionData, useSubmit } from "remix";
 import { API } from "~/services/api";
 import { CONFIG } from "~/config";
+import { createSession } from "~/services/session";
 
 export const action: ActionFunction = async ({ request }) => {
   const formData = await request.formData();
@@ -11,8 +12,8 @@ export const action: ActionFunction = async ({ request }) => {
         email: formData.get("email"),
         password: formData.get("password"),
       };
-      await API.post(`${CONFIG.base_url_api}/user/login`, payload);
-      return redirect("/");
+      const response = await API.post(request, `${CONFIG.base_url_api.default}/user/login`, payload);
+      return createSession({ data: response.data, redirectTo: "/" });
     }
   } catch (err: any) {
     console.log(err);
@@ -22,6 +23,9 @@ export const action: ActionFunction = async ({ request }) => {
 
 export default function Index() {
   const submit = useSubmit();
+  const actionData = useActionData();
+
+  console.log(actionData)
 
   const handleSubmit = (event: any) => {
     submit(event.currentTarge, { method: "post", action: "/signup" });

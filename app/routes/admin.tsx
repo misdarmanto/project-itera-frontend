@@ -1,5 +1,6 @@
 import { Link, LoaderFunction, Outlet, useLoaderData } from "remix";
 import { FaUserCog } from "react-icons/fa";
+import { BiMessageAdd } from "react-icons/bi";
 
 export let loader: LoaderFunction = async () => {
   try {
@@ -23,6 +24,15 @@ export default function Index() {
             >
               <FaUserCog className="text-3xl mr-5 text-gray-500" />
               <span className="flex-1 ml-3 whitespace-nowrap">Users Acsess</span>
+            </Link>
+          </li>
+          <li>
+            <Link
+              to="/admin/notification"
+              className="flex items-center p-3 text-base font-bold text-gray-900 rounded-lg bg-gray-50 hover:bg-gray-100 group hover:shadow dark:bg-gray-600 dark:hover:bg-gray-500 dark:text-white"
+            >
+              <BiMessageAdd className="text-3xl mr-5 text-gray-500" />
+              <span className="flex-1 ml-3 whitespace-nowrap">notification message</span>
             </Link>
           </li>
         </ul>

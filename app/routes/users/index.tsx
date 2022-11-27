@@ -1,34 +1,43 @@
 import { useState } from "react";
-import { LoaderFunction, useLoaderData } from "remix";
+import { LoaderFunction, redirect, useLoaderData } from "remix";
 import Button from "~/components/buttom";
 import Table from "~/components/table";
 import { CONFIG } from "~/config";
 import { API } from "~/services/api";
+import { checkSession } from "~/services/session";
 
-export let loader: LoaderFunction = async () => {
+export let loader: LoaderFunction = async ({ request }) => {
+  // const session: any = await checkSession(request);
+  // if (!session) return redirect("/login");
+
   try {
-    const data = API.get(`${CONFIG.base_url_api}/admin/list`)
+    const data = await API.get(request, `${CONFIG.base_url_api.default}/user/list`);
     const header = ["name", "email", "role", "RFID", "Vehicle Total", "action"];
-    const body = [
-      { name: "Jhon Doe", email: "mail@mail.com", role: "guest", RFID: "12122", vheicleTotal: "2" },
-      { name: "Marrie Doe", email: "mail@mail.com", role: "admin", RFID: "12122", vheicleTotal: "1" },
-      { name: "Jarwo", email: "mail@mail.com", role: "super admin", RFID: "12332", vheicleTotal: "5" },
-      { name: "Jack", email: "mail@mail.com", role: "admin", RFID: "23122", vheicleTotal: "1" },
-      { name: "Tukimin", email: "mail@mail.com", role: "super admin", RFID: "72632", vheicleTotal: "5" },
-    ];
+    const body = data.items.map((item: any) => {
+      return {
+        name: item.user_name,
+        email: item.email,
+        role: item.role,
+        rfid: item.rfid,
+        vheicleTotal: item.vehicles.length,
+      };
+    });
     const table = { header, body };
-    return { table, data };
+    return { table };
   } catch (error) {
-    console.error(error);
+    console.log(error);
+    return null;
   }
 };
 
 export default function Index() {
   const loader = useLoaderData();
-  console.log(loader.data)
+  console.log(loader);
+
+  if (!loader) return <h1 className="text-3xl text-red fomt-bold text-center">Error</h1>;
 
   const [isOpenModal, setIsOpenModal] = useState(false);
-  
+
   return (
     <Table
       header={loader.table.header}

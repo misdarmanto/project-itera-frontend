@@ -2,6 +2,7 @@ import Button from "../buttom";
 import DropDown from "../dropdown";
 import Search from "../form/search";
 import Pagination from "../pagination";
+import { useState } from "react";
 
 const TableHeader = ({ headers }: any) => {
   return (
@@ -18,21 +19,31 @@ const TableHeader = ({ headers }: any) => {
 };
 
 const TableBody = ({ body, actionComponent = () => null }: any) => {
+  const [indexData, setIndexData] = useState<number>(0);
   return (
     <tbody>
       {body.map((item: any, index: number) => {
         const keys = Object.keys(item);
+        const more = body[indexData];
         return (
           <tr
             key={index}
             className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
           >
-            {keys.map((name) => (
-              <td key={name} className="py-4 px-6">
-                {item[name]}
+            {keys.map((name) => {
+              if (name !== "more") {
+                return (
+                  <td key={name} className="py-4 px-6">
+                    {item[name]}
+                  </td>
+                );
+              }
+            })}
+            {actionComponent(more, index) && (
+              <td onClick={() => setIndexData(index)} className="py-4 px-6">
+                {actionComponent(more, index)}
               </td>
-            ))}
-            {actionComponent() && <td className="py-4 px-6">{actionComponent(item)}</td>}
+            )}
           </tr>
         );
       })}
@@ -46,7 +57,7 @@ export default function Table({ header, body, actionComponent }: any) {
       <div className="flex justify-between items-center p-4 bg-white">
         <div className="flex items-center">
           <DropDown />
-          <Button title="Download" />
+          <Button className="mx-2" title="Download" />
         </div>
         <Search />
       </div>
