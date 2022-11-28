@@ -3,6 +3,8 @@ import DropDown from "../dropdown";
 import Search from "../form/search";
 import Pagination from "../pagination";
 import { useState } from "react";
+import moment from "moment";
+import * as XLSX from "xlsx";
 
 const TableHeader = ({ headers }: any) => {
   return (
@@ -52,12 +54,41 @@ const TableBody = ({ body, actionComponent = () => null }: any) => {
 };
 
 export default function Table({ header, body, actionComponent }: any) {
+  const download = async () => {
+    try {
+      let xlsRows: any[] = body.map((data: any) => {
+        const newRows: any = [];
+        const objKey = Object.keys(data);
+        objKey.forEach((key) => {
+          if (key !== "more") {
+            newRows.push(data[key]);
+          }
+        });
+        return newRows;
+      });
+      const xlsHeader = header.filter((item: string) => item.toUpperCase() !== "ACTION");
+      const createXLSLFormatObj = [xlsHeader, ...xlsRows];
+      console.log([xlsHeader, ...xlsRows]);
+      const filename = `user_${moment().format("DD-MM-YYYY")}.xlsx`;
+
+      const worksheetName = "Sheet1";
+      if (typeof console !== "undefined") console.log(new Date());
+      const workbook = XLSX.utils.book_new();
+      const worksheet = XLSX.utils.aoa_to_sheet(createXLSLFormatObj);
+
+      XLSX.utils.book_append_sheet(workbook, worksheet, worksheetName);
+      XLSX.writeFile(workbook, filename);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <div className="overflow-x-auto relative shadow-md sm:rounded-lg my-5">
       <div className="flex justify-between items-center p-4 bg-white">
         <div className="flex items-center">
           <DropDown />
-          <Button className="mx-2" title="Download" />
+          <Button className="mx-2" onClick={download} title="Download" />
         </div>
         <Search />
       </div>

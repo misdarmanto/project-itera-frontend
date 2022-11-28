@@ -13,7 +13,7 @@ export const action: ActionFunction = async ({ request }) => {
         email: formData.get("email"),
         password: formData.get("password"),
       };
-      await API.post(`${CONFIG.base_url_api}/user/signup`, payload);
+      // await API.post(`${CONFIG.base_url_api}/user/signup`, payload);
       return redirect("/login");
     }
   } catch (err: any) {
